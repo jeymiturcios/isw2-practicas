@@ -48,3 +48,4 @@ function procesar(a, b) {
         };
     }
 }
+module.exports = procesar;
