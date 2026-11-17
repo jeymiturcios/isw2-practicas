@@ -1,10 +1,14 @@
+const NOTA_MINIMA = 0;
+const NOTA_MAXIMA = 100;
+const NOTA_APROBACION = 70;
+const NOTA_RECUPERACION = 60;
 
 function validarNotas(notas) {
     for (let indice = 0; indice < notas.length; indice++) {
         if (
             typeof notas[indice] !== "number" ||
-            notas[indice] < 0 ||
-            notas[indice] > 100
+            notas[indice] < NOTA_MINIMA ||
+            notas[indice] > NOTA_MAXIMA
         ) {
             return false;
         }
@@ -31,10 +35,10 @@ function procesarNotas(estudiante, notas) {
         if (validarNotas(notas)) {
             promedio = calcularPromedio(notas);
 
-            if (promedio >= 70) {
+            if (promedio >= NOTA_APROBACION) {
                 estado = "Aprobado";
             } else {
-                if (promedio >= 60) {
+                if (promedio >= NOTA_RECUPERACION) {
                     estado = "Recuperación";
                 } else {
                     estado = "Reprobado";
