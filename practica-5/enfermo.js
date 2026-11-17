@@ -1,39 +1,39 @@
 
-function procesar(a, b) {
-    let x = 0;
-    let y = "";
+function procesarNotas(estudiante, notas) {
+    let promedio = 0;
+    let estado = "";
 
-    if (a && a.nombre && b && b.length > 0) {
-        let z = true;
+    if (estudiante && estudiante.nombre && notas && notas.length > 0) {
+        let notasValidas = true;
 
-        for (let i = 0; i < b.length; i++) {
-            if (typeof b[i] !== "number" || b[i] < 0 || b[i] > 100) {
-                z = false;
+        for (let indice = 0; indice < notas.length; indice++) {
+            if (typeof notas[indice] !== "number" || notas[indice] < 0 || notas[indice] > 100) {
+                notasValidas = false;
             }
         }
 
-        if (z) {
-            for (let i = 0; i < b.length; i++) {
-                x = x + b[i];
+        if (notasValidas) {
+            for (let indice = 0; indice < notas.length; indice++) {
+                promedio = promedio + notas[indice];
             }
 
-            x = x / b.length;
+            promedio = promedio / notas.length;
 
-            if (x >= 70) {
-                y = "Aprobado";
+            if (promedio >= 70) {
+                estado = "Aprobado";
             } else {
-                if (x >= 60) {
-                    y = "Recuperación";
+                if (promedio >= 60) {
+                    estado = "Recuperación";
                 } else {
-                    y = "Reprobado";
+                    estado = "Reprobado";
                 }
             }
 
             return {
-                nombre: a.nombre,
-                promedio: Number(x.toFixed(2)),
-                estado: y,
-                mensaje: "El estudiante " + a.nombre + " obtuvo " + y
+                nombre: estudiante.nombre,
+                promedio: Number(promedio.toFixed(2)),
+                estado: estado,
+                mensaje: "El estudiante " + estudiante.nombre + " obtuvo " + estado
             };
         } else {
             return {
@@ -48,4 +48,5 @@ function procesar(a, b) {
         };
     }
 }
-module.exports = procesar;
+
+module.exports = procesarNotas;
