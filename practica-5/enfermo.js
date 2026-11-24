@@ -1,39 +1,55 @@
+const NOTA_MINIMA = 0;
+const NOTA_MAXIMA = 100;
+const NOTA_APROBACION = 70;
+const NOTA_RECUPERACION = 60;
 
-function procesar(a, b) {
-    let x = 0;
-    let y = "";
-
-    if (a && a.nombre && b && b.length > 0) {
-        let z = true;
-
-        for (let i = 0; i < b.length; i++) {
-            if (typeof b[i] !== "number" || b[i] < 0 || b[i] > 100) {
-                z = false;
-            }
+function validarNotas(notas) {
+    for (let indice = 0; indice < notas.length; indice++) {
+        if (
+            typeof notas[indice] !== "number" ||
+            notas[indice] < NOTA_MINIMA ||
+            notas[indice] > NOTA_MAXIMA
+        ) {
+            return false;
         }
+    }
 
-        if (z) {
-            for (let i = 0; i < b.length; i++) {
-                x = x + b[i];
-            }
+    return true;
+}
 
-            x = x / b.length;
+function calcularPromedio(notas) {
+    let promedio = 0;
 
-            if (x >= 70) {
-                y = "Aprobado";
+    for (let indice = 0; indice < notas.length; indice++) {
+        promedio += notas[indice];
+    }
+
+    return promedio / notas.length;
+}
+
+function procesarNotas(estudiante, notas) {
+    let promedio = 0;
+    let estado = "";
+
+    if (estudiante && estudiante.nombre && notas && notas.length > 0) {
+        if (validarNotas(notas)) {
+            promedio = calcularPromedio(notas);
+
+            if (promedio >= NOTA_APROBACION) {
+                estado = "Aprobado";
             } else {
-                if (x >= 60) {
-                    y = "Recuperación";
+                if (promedio >= NOTA_RECUPERACION) {
+                    estado = "Recuperación";
                 } else {
-                    y = "Reprobado";
+                    estado = "Reprobado";
                 }
             }
 
             return {
-                nombre: a.nombre,
-                promedio: Number(x.toFixed(2)),
-                estado: y,
-                mensaje: "El estudiante " + a.nombre + " obtuvo " + y
+                nombre: estudiante.nombre,
+                promedio: Number(promedio.toFixed(2)),
+                estado: estado,
+                mensaje: "El estudiante " + estudiante.nombre + " obtuvo " + estado
             };
         } else {
             return {
@@ -48,3 +64,5 @@ function procesar(a, b) {
         };
     }
 }
+
+module.exports = procesarNotas;
