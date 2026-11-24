@@ -20,3 +20,4 @@ Este repositorio tiene la, finalidad de documentar cada una de las practicas rea
 10. Practica 10
 
 
+Código de verificación: `LEARN-CAP-1DDC923F`
